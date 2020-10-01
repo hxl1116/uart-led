@@ -49,6 +49,9 @@ void parse() {
 
 					// Decrement input counter
 					count--;
+					
+					// Clear line in console
+//					USART_Write(USART2, (uint8_t *)"\33[2K", 4);
 
 					print_buffer(input_buffer, prompt);
 				} else if (count == 0) {
