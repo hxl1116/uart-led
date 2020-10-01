@@ -14,7 +14,7 @@
 #include <stdio.h>
 
 void parse() {
-	char *prompt = "\r\nEnter a command: ";	// Input prompt
+	char *prompt = "\rEnter a command: ";	// Input prompt
 	char input_buffer[BufferSize];	// Input buffer
 	char *current = input_buffer;	// Current input buffer index
 	char input;	// Current input
@@ -23,6 +23,9 @@ void parse() {
 
 	int flash_flag;	// Determines which LED flashes
 	int flash_count = 0;
+
+	// Initialize input buffer to be empty
+	memset(input_buffer, 0, sizeof input_buffer);
 
 	// Prompt user for input
 	USART_Write(USART2, (uint8_t *)prompt, strlen(prompt));
@@ -41,6 +44,7 @@ void parse() {
 				current = input_buffer;
 
 				// Prompt user for input
+				USART_Write(USART2, (uint8_t *)'\n', 1);
 				USART_Write(USART2, (uint8_t *)prompt, strlen(prompt));
 			} else if (input == '\x08' || input == '\x7F') {	// If input is 'backspace'
 				if (count > 0) {
@@ -97,7 +101,7 @@ int handle(char *buffer) {
 	else if (strcmp(buffer, "RFLASH") == 0) return 1;	// Handle RFLASH, return red LED flag
 	else if (strcmp(buffer, "GFLASH") == 0) return 2;	// Handle GFLASH, return green LED flag
 	else if (strcmp(buffer, "FLASHOFF") == 0) disable_leds();	// Handle FLASHOFF
-	else USART_Write(USART2, (uint8_t *)"\n\rInvalid command\n\r", 19);	// Handle invalid command
+	else USART_Write(USART2, (uint8_t *)"\rInvalid command\n\r", 19);	// Handle invalid command
 
 	return 0;	// Return null LED flag
 }
@@ -108,12 +112,12 @@ void disable_leds() {
 }
 
 void print_buffer(char *buffer, char *prompt) {
-	// Write new line to console
-	USART_Write(USART2, (uint8_t *)"\r\n", 2);
+	// Clear line in console
+	USART_Write(USART2, (uint8_t *)"\33[2K", 4);
 
 	// Write prompt to console
 	USART_Write(USART2, (uint8_t *)prompt, strlen(prompt));
 
 	// Write input buffer to console
-	USART_Write(USART2, (uint8_t *)buffer, sizeof buffer);
+	USART_Write(USART2, (uint8_t *)buffer, strlen(buffer));
 }
