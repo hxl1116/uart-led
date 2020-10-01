@@ -9,10 +9,23 @@ Embedded CLI on an STM32 microcontroller to manipulate red and green LEDs.
 5. Replace 'Inc' and 'Src' files with the ones in this repo.
 
 ## Commands
-	`RON`: Turns on red LED
-	`ROFF`: Turns off red LED
-	`GON`: Turns on green LED
-	`GOFF`: Turns off green LED
-	`RFLASH`: Turns on red LED flashing
-	`GFLASH`: Turns on green LED flashing
-	`FLASHOFF`: Turns off both LED flashing
+  `RON`:
+  Turns on red LED
+  
+  `ROFF`:
+  Turns off red LED
+  
+  `GON`:
+  Turns on green LED
+  
+  `GOFF`:
+  Turns off green LED
+  
+  `RFLASH`:
+  Turns on red LED flashing
+  
+  `GFLASH`:
+  Turns on green LED flashing
+  
+  `FLASHOFF`:
+  Turns off both LED flashing
